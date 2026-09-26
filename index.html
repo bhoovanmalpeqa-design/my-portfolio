@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Portfolio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg: #07090d;
+            --bg-secondary: #0d1117;
+            --card: #11161d;
+            --text: #f5f7fa;
+            --muted: #9ca6b5;
+            --accent: #00e5ff;
+            --accent2: #7c3aed;
+            --border: rgba(255,255,255,0.08);
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 20px 8%;
+
+            background: rgba(7, 9, 13, 0.75);
+            backdrop-filter: blur(15px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            padding: 120px 8% 80px;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            background: var(--accent);
+
+            filter: blur(180px);
+            opacity: 0.12;
+
+            top: 10%;
+            left: 50%;
+
+            transform: translateX(-50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-tag {
+            color: var(--accent);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.05;
+            margin-bottom: 25px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(
+                90deg,
+                var(--accent),
+                #ffffff,
+                var(--accent2)
+            );
+
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+
+            color: var(--muted);
+            font-size: 1.1rem;
+        }
+
+        .buttons {
+            margin-top: 35px;
+
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 13px 25px;
+            border-radius: 8px;
+
+            text-decoration: none;
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #001014;
+
+            box-shadow: 0 0 25px rgba(0,229,255,0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(0,229,255,0.45);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ================= SECTIONS ================= */
+
+        section {
+            padding: 100px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title span {
+            color: var(--accent);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            margin-top: 10px;
+        }
+
+        /* ================= ABOUT ================= */
+
+        .about {
+            background: var(--bg-secondary);
+        }
+
+        .about-container {
+            max-width: 1000px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill {
+            padding: 10px 15px;
+
+            background: var(--card);
+            border: 1px solid var(--border);
+
+            border-radius: 8px;
+
+            color: var(--accent);
+
+            transition: 0.3s;
+        }
+
+        .skill:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* ================= PROJECTS ================= */
+
+        .projects-container {
+            max-width: 1200px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .project-card {
+            background: var(--card);
+
+            border: 1px solid var(--border);
+            border-radius: 15px;
+
+            padding: 30px;
+
+            transition: 0.35s;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 150px;
+            height: 150px;
+
+            background: var(--accent);
+
+            filter: blur(100px);
+            opacity: 0;
+
+            right: -50px;
+            top: -50px;
+
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0,229,255,0.4);
+        }
+
+        .project-card:hover::before {
+            opacity: 0.15;
+        }
+
+        .project-number {
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        .project-card h3 {
+            margin: 15px 0;
+            font-size: 1.5rem;
+        }
+
+        .project-card p {
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech span {
+            font-size: 0.75rem;
+
+            padding: 5px 9px;
+
+            border-radius: 5px;
+
+            background: #191f27;
+            color: #b7c0cd;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 25px;
+
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ================= CONTACT ================= */
+
+        .contact {
+            background: var(--bg-secondary);
+        }
+
+        .contact-container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+
+            padding: 15px;
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+            border-radius: 8px;
+
+            color: white;
+
+            font-size: 1rem;
+
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(0,229,255,0.08);
+        }
+
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 14px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: var(--accent);
+            color: #001014;
+
+            font-size: 1rem;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0,229,255,0.3);
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            padding: 30px 8%;
+
+            text-align: center;
+
+            border-top: 1px solid var(--border);
+
+            color: var(--muted);
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 80px 5%;
+            }
+
+            .hero {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav>
+
+        <div class="logo">
+            &lt;/&gt; DEV
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="hero-tag">
+                Developer • Engineer • Creator
+            </div>
+
+            <h1>
+                Hi, I'm
+                <span class="gradient-text">
+                   Bhoovan Malpe
+                </span>
+            </h1>
+
+            <p>
+                I build modern applications, intelligent systems,
+                and technology that solves real-world problems.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#projects"
+                   class="btn btn-primary">
+                    View My Work
+                </a>
+
+                <a href="#contact"
+                   class="btn btn-secondary">
+                    Contact Me
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="about" id="about">
+
+        <div class="section-title">
+
+            <span>About Me</span>
+
+            <h2>Building with code.</h2>
+
+        </div>
+
+
+        <div class="about-container">
+
+            <div class="about-text">
+
+                <p>
+                    I'm a developer passionate about programming,
+                    artificial intelligence and machine learning
+                    useful technology.
+                </p>
+
+                <p>
+                    I enjoy taking ideas from a simple concept and
+                    turning them into working software and hardware
+                    projects.
+                </p>
+
+            </div>
+
+
+            <div class="skills">
+
+                <div class="skill">Python</div>
+                <div class="skill">C++</div>
+                <div class="skill">JavaScript</div>
+                <div class="skill">HTML</div>
+                <div class="skill">CSS</div>
+                <div class="skill">React</div>
+                <div class="skill">Machine Learning</div>
+                <div class="skill">ESP32</div>
+                <div class="skill">Git</div>
+                <div class="skill">AI</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROJECTS ================= -->
+
+    <section id="projects">
+
+        <div class="section-title">
+
+            <span>My Work</span>
+
+            <h2>Featured Projects</h2>
+
+        </div>
+
+
+        <div class="projects-container">
+
+
+            <!-- PROJECT 1 -->
+
+            <div class="project-card">
+
+                <div class="project-number">
+                    01
+                </div>
+
+                <h3>AI Analytics Dashboard</h3>
+
+                <p>
+                    A modern dashboard that analyzes data using
+                    machine learning and presents useful insights
+                    through interactive visualizations.
+                </p>
+
+                <div class="tech">
+                    <span>Python</span>
+                    <span>ML</span>
+                    <span>React</span>
+                    <span>API</span>
+                </div>
+
+                <a href="#"
+                   class="project-link">
+                    View Project →
+                </a>
+
+            </div>
+
+
+            <!-- PROJECT 2 -->
+
+            <div class="project-card">
+
+                <div class="project-number">
+                    02
+                </div>
+
+                <h3>Smart IoT System</h3>
+
+                <p>
+                    An IoT system using ESP32 devices to collect
+                    sensor data and communicate with a real-time
+                    monitoring application.
+                </p>
+
+                <div class="tech">
+                    <span>ESP32</span>
+                    <span>C++</span>
+                    <span>IoT</span>
+                    <span>Python</span>
+                </div>
+
+                <a href="#"
+                   class="project-link">
+                    View Project →
+                </a>
+
+            </div>
+
+
+            <!-- PROJECT 3 -->
+
+            <div class="project-card">
+
+                <div class="project-number">
+                    03
+                </div>
+
+                <h3>Developer Productivity App</h3>
+
+                <p>
+                    A productivity application designed to help
+                    developers track tasks, monitor progress and
+                    organize their workflow.
+                </p>
+
+                <div class="tech">
+                    <span>JavaScript</span>
+                    <span>React</span>
+                    <span>Node.js</span>
+                    <span>MongoDB</span>
+                </div>
+
+                <a href="#"
+                   class="project-link">
+                    View Project →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CONTACT ================= -->
+
+    <section class="contact" id="contact">
+
+        <div class="section-title">
+
+            <span>Get In Touch</span>
+
+            <h2>Let's build something.</h2>
+
+        </div>
+
+
+        <div class="contact-container">
+
+            <form id="contactForm">
+
+                <input
+                    type="text"
+                    placeholder="Your Name"
+                    required
+                >
+
+                <input
+                    type="email"
+                    placeholder="Your Email"
+                    required
+                >
+
+                <textarea
+                    placeholder="Your Message"
+                    required
+                ></textarea>
+
+                <button type="submit">
+                    Send Message →
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        © 2026 Your Name.
+        Built with HTML, CSS & JavaScript.
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        const form = document.getElementById("contactForm");
+
+        form.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            alert(
+                "Thanks for your message! I'll get back to you soon."
+            );
+
+            form.reset();
+
+        });
+
+    </script>
+
+</body>
+</html>
